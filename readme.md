@@ -23,7 +23,7 @@ View open [issues](https://github.com/nylas-samples/nylas-hacktoberfest-2023/iss
 
 If you plan to work on an issue, start a quick dialogue with the maintainer and wait for the maintainer to assign the issue to you. We want everyone to get a chance to contribute, please do not take on multiple issues at once (chat with us before doing so). We will review assigned issues frequently to give everyone a chance to contribute.
 
-After you are assigned a ticket, let's quickly chat via the issue, we will provide access to our developer dashboard for v3 to get the necessary credentials, this is a relatively quick process and is open to hacktober developers to try out!
+After you are assigned a ticket, let's quickly chat via the issue, if required, we will provide access to our developer dashboard for v3 to get the necessary credentials, this is a relatively quick process and is open to hacktober developers to try out!
 
 Once a PR is open and being worked on for an issue, ensure to link the issue to the PR. Linking an issue to development branch can be done on the Issue page (search for `Development`). 
 
