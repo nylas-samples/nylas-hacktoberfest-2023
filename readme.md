@@ -1,5 +1,7 @@
 # Nylas Hacktoberfest 2023: Build with Nylas!
 
+![Hacktoberfest 2023](https://github.com/nylas-samples/nylas-hacktoberfest-2023/assets/553578/56e3859d-2524-4b97-b2dd-1d9a11706523)
+
 Happy Hacktoberfest! Let's Build with Nylas :)
 
 Create and find code snippets for Nylas v3 authentication, scheduling, calendar, and more. View code snippet ideas [in the issues list](https://github.com/nylas-samples/nylas-hacktoberfest-2023/issues).
