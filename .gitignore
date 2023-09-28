@@ -1,0 +1,14 @@
+# Node 
+.DS_Store
+lib
+node_modules
+npm-debug.log
+.grunt
+_SpecRunner.html
+*.swp
+*.swo
+tags
+CTAGS
+.idea
+.env
+
