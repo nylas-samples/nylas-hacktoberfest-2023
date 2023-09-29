@@ -1,6 +1,6 @@
 # Nylas Hacktoberfest 2023: Build with Nylas!
 
-![Hacktoberfest 2023](https://github.com/nylas-samples/nylas-hacktoberfest-2023/assets/553578/56e3859d-2524-4b97-b2dd-1d9a11706523)
+![Hacktoberfest 2023 (1)](https://github.com/nylas-samples/nylas-hacktoberfest-2023/assets/553578/134f8c89-9753-480c-841f-f65e3e98c9d4)
 
 Happy Hacktoberfest! Let's Build with Nylas :)
 
