@@ -93,17 +93,14 @@ Check out our [FAQs](https://github.com/nylas-samples/nylas-hacktoberfest-2023/b
 ## Calendar and Events API samples
 
 **Node.js SDK**
-- [node-manage-calendar-events](https://github.com/nylas-samples/node-manage-calendar-events): Manage calendar events with the Nylas Node.js SDK!
-- [node-send-calendar-event-notifications](https://github.com/nylas-samples/node-send-calendar-event-notifications) Manage calendar events notifications with the Nylas Node.js SDK!
+- Add your code sample here
 
 **Python SDK**
-- [python-holiday-generator](https://github.com/nylas-samples/python-holidays-generator): Generate a Markdown file of your Holidays Calendar using the Nylas Python SDK
+- Add your code sample here
 
 **Other languages**
-- [Read Calendars with C#](https://github.com/nylas-samples/read_calendars_c_sharp): Read calendars using C#
-- [Read Events with C#](https://github.com/nylas-samples/read_events_c_sharp): Read daily events using C#
-- [Create Events with C#](https://github.com/nylas-samples/create_events_c_sharp): Create an event using C#
-
+- Add your code sample here
+- 
 ## Scheduler samples
 
 **Node.js SDK**
