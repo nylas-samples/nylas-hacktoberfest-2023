@@ -4,7 +4,7 @@
 
 Happy Hacktoberfest! Let's Build with Nylas :)
 
-Create and find code snippets for Nylas v3 authentication, calendar, webhooks and more. 
+Create and find code snippets for Nylas v3 authentication, calendar, calendar events, webhooks and more. 
 
 1. View code snippet ideas [in the issues list](https://github.com/nylas-samples/nylas-hacktoberfest-2023/issues).
 2. Check out our open source SDKs that are looking for contributions:
@@ -29,7 +29,7 @@ _If you're interested in building for Nylas, [come join us](https://ats.comparab
 We will follow guidelines provided by hacktoberfest. Please review them [here](https://hacktoberfest.com/participation/#pr-mr-details).
 
 ## Working on an issue
-View open [issues](https://github.com/nylas-samples/nylas-hacktoberfest-2023/issues) with the `hacktoberfest` label. 
+View open [issues](https://github.com/nylas-samples/nylas-hacktoberfest-2023/issues) with the `hacktoberfest` label. It's relatively quick to create a code sample, and we are here to support you!
 
 If you plan to work on an issue, start a quick dialogue with the maintainer and wait for the maintainer to assign the issue to you. We want everyone to get a chance to contribute, please do not take on multiple issues at once (chat with us before doing so). We will review assigned issues frequently to give everyone a chance to contribute.
 
