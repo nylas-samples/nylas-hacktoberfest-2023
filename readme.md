@@ -13,6 +13,10 @@ Create and find code snippets for Nylas v3 authentication, calendar, calendar ev
 - [Nylas Node SDK](https://github.com/nylas/nylas-nodejs/issues)
 - [Nylas Python SDK](https://github.com/nylas/nylas-python/issues)
 
+
+## Youtube Livestream
+[![Watch the video](https://img.youtube.com/vi/wmtk-9NvdBI/maxresdefault.jpg)](https://www.youtube.com/watch?v=wmtk-9NvdBI)
+
 ## What is Nylas?
 Nylas allows developers to access Emails, Calendars, and Contacts data over API. So you can complete CRUD (Create-Read-Update-Delete) operations for your users' Emails, Calendar, and Contacts using Nylas.
 
