@@ -1,0 +1,16 @@
+{
+  "name": "update-calendar-event",
+  "version": "1.0.0",
+  "description": "NodeJs Nylas SDK for updating calendar event ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "destryptor",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "nylas": "^7.0.0-beta.2"
+  }
+}
