@@ -107,6 +107,7 @@ Check out our [FAQs](https://github.com/nylas-samples/nylas-hacktoberfest-2023/b
 ## Calendar and Events API samples
 
 **Node.js SDK**
+- [node-create-calendar](/code-samples/calendar/node/create-calendar/readme.md): Create a new calendar with the Nylas Node.js SDK!
 - [node-update-calendar-event](/code-samples/calendar-event/node/): Update a calendar event with the Nylas Node.js SDK!
 
 **Python SDK**
