@@ -5,9 +5,8 @@
 1) In the root folder, create a .env file with the following fields to ensure correct nylas configuration. Get these from your Nylas dashboard.
 
 ```bash
-  CLIENT_ID=""
-  CLIENT_SECRET=""
-  ACCESS_TOKEN=""
+  API_KEY:""
+  GRANT_ID:""
 ```
 
 2) Install dependencies using npm:

@@ -4,18 +4,17 @@ const Nylas = require("nylas");
 dotenv.config();
 
 // configuring the Nylas client
-Nylas.config({
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET
-});
+const NylasConfig = {
+    apiKey: `${process.env.API_KEY}`
+}
 
 // initialising the Nylas client with access token
-const nylas = Nylas.with(process.env.ACCESS_TOKEN);
+const nylas = new Nylas(NylasConfig);
 
 // enter the Event ID which you want to update
 const eventId = '<Event ID to be updated>';
 
-nylas.events.find(eventId)
+nylas.events.find(eventId, {identifier: `${process.env.GRANT_ID}`})
     .then((event) => {
         event.title = '<Updated Event Title>';    //replace these placeholders with your own values
         event.location = '<Updated Location>';
