@@ -2,7 +2,10 @@
 You should be using our dashboard that has a v3 in the url, so the url contains: `v3.nylas.com`
 
 ## Q. What do I do now that I have access?
-You are not required to complete further onboarding, we've setup an app and Google credentials for you to test out your code sample.
+You are not required to complete further onboarding, so skip the callback url, we've setup an app and Google credentials for you to test out your code sample.
+
+![screenshot-skip-uri](https://github.com/nylas-samples/nylas-hacktoberfest-2023/assets/553578/103c55d3-7639-4804-a317-f5a72f927eef)
+
 
 Two items:
 1. Create API Credentials:
