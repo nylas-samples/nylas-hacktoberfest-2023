@@ -21,7 +21,7 @@ API_KEY="YOUR_API_KEY"
 Run the python script
 
 ```bash
-python CreateWebhook.py
+python create_webhook.py
 ```
 
 ## Output
