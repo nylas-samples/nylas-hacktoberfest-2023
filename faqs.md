@@ -2,6 +2,8 @@
 You should be using our dashboard that has a v3 in the url, so the url contains: `v3.nylas.com`:
 <img width="292" alt="Screenshot 2023-10-13 at 11 19 36 AM" src="https://github.com/nylas-samples/nylas-hacktoberfest-2023/assets/553578/0a551a26-b388-401d-b505-7659754990f1">
 
+## Q. Where can I learn more about Nylas v3?
+1. Check out our [developer docs](https://developer.nylas.com/docs/v3-beta/)
 
 ## Q. What do I do now that I have access?
 You are not required to complete further onboarding, so skip the callback url, we've setup an app and Google credentials for you to test out your code sample.
