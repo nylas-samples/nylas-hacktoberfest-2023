@@ -13,12 +13,17 @@ calendar = {
     "name": "New Calendar Name"
 }
 
-#printing calendars
-no_calendar= 0
+# Getting the list of calendars
+response = nylas.calendars.list(identifier=os.getenv("GRANT_ID"))
+calendars = response.data 
+
+
+# printing calendars 
+calendar_index = 0
 print("SNo. | Calendar Name | Calendar ID\n")
-for i in calendar:
-    print(f"{no_calendar}. {i.name} | {i.id}")
-    no_calendar+=1
+for calendar in calendars:
+    print(f"{calendar_index}. {calendar.name} | {calendar.id}")
+    calendar_index+=1
 
 try:
     new_calendar = nylas.calendars.create(calendar)
