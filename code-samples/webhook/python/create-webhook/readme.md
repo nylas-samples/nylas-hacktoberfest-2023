@@ -10,10 +10,10 @@ pip install python-dotenv
 ```
 
 2. Create .env file inside for Nylas configuration environmental variables
-inside the folder /code-samples/webhook/python/create-webhook/
 
 ```bash
 API_KEY="YOUR_API_KEY"
+CALLBACK_URL="CALLBACK_URL"
 ```
 
 ## Usage
@@ -23,6 +23,3 @@ Run the python script
 ```bash
 python create_webhook.py
 ```
-
-## Output
-
