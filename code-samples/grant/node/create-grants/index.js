@@ -35,26 +35,12 @@ app.get("/oauth/exchange", async (req, res) => {
       redirectUri,
     });
 
-    console.log("===========================");
-    console.log(resp);
-    console.log("===========================");
+    console.log("GRANT ID: ", resp.grantId);
 
-    const newGrants = await nylas.auth.grants.create({
-      requestBody: {
-        provider: "google",
-        scope: resp.scope,
-        settings: {
-          refreshToken: resp.refreshToken,
-        },
-      },
-    });
-
-    console.log(newGrants.data);
+    return res.statusCode(201).json(resp);
   } catch (error) {
-    return res.json(error);
+    return res.statusCode(400).json(error);
   }
-
-  return res.send("hello");
 });
 
 app.listen(3000, () => {
