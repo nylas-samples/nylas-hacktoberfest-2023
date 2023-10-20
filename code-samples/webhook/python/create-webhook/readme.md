@@ -16,6 +16,12 @@ API_KEY="YOUR_API_KEY"
 CALLBACK_URL="CALLBACK_URL"
 ```
 
+3. Your callback url needs to be in the following format
+
+```bash
+"https://your-server.com/webhook"
+```
+
 ## Usage
 
 Run the python script

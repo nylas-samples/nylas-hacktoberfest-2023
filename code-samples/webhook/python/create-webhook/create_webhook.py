@@ -30,5 +30,8 @@ try:
     response = client.webhooks.create(
         request_body=request_body
     )
+
+    all_webhooks = client.webhooks.list()
+    print(all_webhooks)
 except Exception as e:
     print (e)
