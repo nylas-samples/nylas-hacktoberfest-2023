@@ -9,6 +9,7 @@ This sample will show you to easily create grants with the Nylas Node.js SDK.
 ```
 API_KEY="YOUR_API_KEY"
 CLIENT_ID="YOUR_CLIENT_ID"
+CLIENT_SECRET="YOUR_CLIENT_SECRET"
 ```
 
 ## Install dependencies

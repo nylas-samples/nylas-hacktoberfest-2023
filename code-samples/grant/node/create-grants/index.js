@@ -8,6 +8,8 @@ const nylas = new Nylas({
   apiKey: process.env.API_KEY,
 });
 
+const redirectUri = "http://localhost:3000/oauth/exchange";
+
 const app = express();
 
 app.use(express.json());
@@ -15,8 +17,8 @@ app.use(express.json());
 app.get("/oauth", async (_, res) => {
   const authUrl = await nylas.auth.urlForOAuth2({
     clientId: process.env.CLIENT_ID,
-    redirectUri: "http://localhost:3000/oauth/exchange",
     provider: "google",
+    redirectUri,
   });
 
   return res.redirect(authUrl);
@@ -25,20 +27,32 @@ app.get("/oauth", async (_, res) => {
 app.get("/oauth/exchange", async (req, res) => {
   const { code } = req.query;
 
-  const resp = await nylas.auth.exchangeCodeForToken({
-    code,
-  });
+  try {
+    const resp = await nylas.auth.exchangeCodeForToken({
+      clientSecret: process.env.CLIENT_SECRET,
+      clientId: process.env.CLIENT_ID,
+      code,
+      redirectUri,
+    });
 
-  const newGrants = await nylas.auth.grants.create({
-    requestBody: {
-      provider: "google",
-      settings: {
-        refreshToken: resp.refreshToken,
+    console.log("===========================");
+    console.log(resp);
+    console.log("===========================");
+
+    const newGrants = await nylas.auth.grants.create({
+      requestBody: {
+        provider: "google",
+        scope: resp.scope,
+        settings: {
+          refreshToken: resp.refreshToken,
+        },
       },
-    },
-  });
+    });
 
-  console.log(newGrants.data);
+    console.log(newGrants.data);
+  } catch (error) {
+    return res.json(error);
+  }
 
   return res.send("hello");
 });
