@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-nylas = "^5.14.1"
+nylas = { version = "<7", allow-prereleases = true}
 python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]

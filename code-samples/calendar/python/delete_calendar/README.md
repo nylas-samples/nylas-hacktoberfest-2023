@@ -1,14 +1,14 @@
-# 🗓️ Delete Calendar Event 
+# 🗓️ Delete a Calendar 
 
-Delete calendar events using the Nylas Python SDK and Poetry.
+Delete a calendar using the Nylas Python SDK and Poetry.
 
 ## 📜 Introduction
 
-The `delete_calendar` project is a Python script that leverages the Nylas Python SDK to read and delete calendar events from a Nylas calendar. It's designed to provide a straightforward way to fetch, display, and delete calendar events using events ids.
+The `delete_calendar` project is a Python script that leverages the Nylas Python SDK to read and delete a calendar from a Nylas calendar. It's designed to provide a straightforward way to create, fetch, display, and delete a calendar using its id.
 
 ## ✨ Features
 
-- Read and delete calendar events using events ids.
+- Create, read and delete calendar using its id.
 - Handle Nylas API errors and edge cases.
 - Integrates with Poetry for dependency management.
 
@@ -18,9 +18,8 @@ Before using this project, make sure you have the following prerequisites:
 
 - Python 3.10 or higher
 - Make
-- Nylas API credentials (Client ID and Client Secret)
-- A Nylas Event ID
-- Writable Calendar Permissions (Ensure that you are attempting to delete events from a calendar for which you have the necessary write permissions. If you don't have write permissions, you won't be able to delete events.)
+- Nylas API credentials (`'API_KEY'` and `'GRANT_ID'`)
+- A Nylas Calendar ID
 
 ## 🔧 Using Make
 
@@ -36,8 +35,8 @@ You can use the `make` command for common development tasks. Here are some usefu
 1. Fork/Clone this repository to your local machine:
 
     ```bash
-    git clone https://github.com/yourusername/delete_calendar.git
-    cd delete_calendar
+    git clone https://github.com/nylas-samples/nylas-hacktoberfest-2023.git
+    cd nylas-hacktoberfest-2023/code-samples/calendar/python/delete_calendar
     ```
 
 1. Set up a virtual environment and activate it:
@@ -52,7 +51,7 @@ You can use the `make` command for common development tasks. Here are some usefu
     make install
     ```
 
-1. Configure your Nylas API credentials in the `.env` file by setting your `'CLIENT_ID'`, `'CLIENT_SECRET'`, and `'ACCESS_TOKEN'`  with your actual credentials.
+1. Configure your Nylas API credentials in the `.env` file by setting your `'API_KEY'` and `'GRANT_ID'` with your actual credentials.
 
 ## 🏁 Getting Started
 
@@ -71,47 +70,31 @@ Read the on-screen information and copy a calendar event ID to delete it using i
 
 
     poetry run delete_calendar
-    List of Event IDs:
-    8lyufsks2dlxzvh5ads9h3llu
-    c92mwkdflwoati4d9mqshp074
-    8ubgm7kv9l2v1rxs26k5g397
-    5nln0ohex4dn27gmqpe3qgyd8
-    7mp9mc8xhiqhdxrz1d016321i
-    885cbcl988aascqawtj6h55va
-    4ew4b9o6w8gvzziz8dd6zzvxx
-    28d6nu7pecfaqqtzgj8jrbmb8
-    85shuq74xeim89dk9pzvhzjpm
-    ar0xu8r084wrdtket5qcw4bgt
-    4wgzheqwxjq5bw6ug31htgio5
-    5ej4lyzc58jqhjqz9zrnqgn3x
-    25x79a27goaaq5mrwv5084bsi
-    6coplhoraf9esccd1kd4zihib
-    2hfs2zxz2mzlcoixoj5215aem
-    d2orjl3l6vmxrp8kqhu2fv2cr
-    a1t8wfj1b8yuvjgju6fga1zob
-    bb88xihtatdweg0tgo8plbrvt
-    ceyqg4k6t02xlpze3yxsy0r1z
-    beo568s8u05ijvcoh9tn2swg5
-    2rmt7iktplfmr4v3yp7l9tppz
-    axevzyws8x6h351h0ntpq4uzz
-    e8m8x8tqrbx5t0ib1rlg0n0fk
-    b5n1n1aiv09bfttnrc2vfo2vd
-    2l0qncpie7izh31pyu6h7j28h
-    6dbs08jm60uxuwjkjik0d5lbf
-    42affp9mng41cqvizb3sd5m66
-    ahdzncvs8p8zlc4aeczjyd5vo
-    atz4qf0gdc3b8yple94uay1y8
-    3i7dqq8ty1a14f7vwj1g1aohf
-    3pi8qrx2kfyk7lrq5pyzlbe7s
-    58u2d5wjvdwsixa5o6gm2lym2
-    4o8vwiifs1k7f0b4q99m1cwpm
-    138d1bri1gjc5e6kqree5wtl8
-    b4mhw2z253riz0e1p7a9xn5au
-    e0zanhxx9sgsbv07phttezgss
-    7996t2mqe7outp110w3o5xw05
-    2jfq861nvqsdjbi18hm1u2luc
-    54x6ntmfigid84bcwyv1yh391
-    Calendar event deleted successfully.
+
+    Calendars before delete:
+
+    Connected Calendars:
+
+    Calendar ID: mahmoudddharmouchhh@gmail.com, Name: mahmoudddharmouchhh@gmail.com, Description: None
+    Calendar ID: en.lb#holiday@group.v.calendar.google.com, Name: Holidays in Lebanon, Description: Holidays and Observances in Lebanon
+    Calendar ID: addressbook#contacts@group.v.calendar.google.com, Name: Birthdays, Description: Displays birthdays, anniversaries, and other event dates of people in Google Contacts.
+    Calendar ID: 8t4pnfu73fdiv73qreji1d2j5534dmbl@import.calendar.google.com, Name: Coursera Calendar - Mahmoud Harmouch - mahmoudddharmouchhh@gmail.com, Description: None
+    Calendar ID: g0oi8mfkvnr9hgiqscsda17vlg@group.calendar.google.com, Name: test, Description: test description
+    Calendar ID: n1rd0h727dk44lva57qnbbeis8@group.calendar.google.com, Name: test, Description: test description
+    Calendar ID: co9ko6p4qbd5fvh7i55urnvf5s@group.calendar.google.com, Name: test, Description: test description
+    Nylas Error: Not Found # <- bug in Nylas API v3 because the calendar whose id `g0oi8mfkvnr9hgiqscsda17vlg@group.calendar.google.com` was successfully deleted!
+    Failed to delete the calendar.
+
+    Calendars after delete:
+
+    Connected Calendars:
+
+    Calendar ID: mahmoudddharmouchhh@gmail.com, Name: mahmoudddharmouchhh@gmail.com, Description: None
+    Calendar ID: en.lb#holiday@group.v.calendar.google.com, Name: Holidays in Lebanon, Description: Holidays and Observances in Lebanon
+    Calendar ID: addressbook#contacts@group.v.calendar.google.com, Name: Birthdays, Description: Displays birthdays, anniversaries, and other event dates of people in Google Contacts.
+    Calendar ID: 8t4pnfu73fdiv73qreji1d2j5534dmbl@import.calendar.google.com, Name: Coursera Calendar - Mahmoud Harmouch - mahmoudddharmouchhh@gmail.com, Description: None
+    Calendar ID: n1rd0h727dk44lva57qnbbeis8@group.calendar.google.com, Name: test, Description: test description
+    Calendar ID: co9ko6p4qbd5fvh7i55urnvf5s@group.calendar.google.com, Name: test, Description: test description
     ```
 
 ## 📚 Documentation

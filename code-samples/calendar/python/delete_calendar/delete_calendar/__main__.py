@@ -1,81 +1,115 @@
-import nylas
-from nylas.client.errors import NylasError
-from dotenv import load_dotenv
 import os
+
+import nylas
+from dotenv import load_dotenv
 
 # Load environment variables from a .env file
 load_dotenv()
 
-# Initialize the Nylas client with environment variables
-client = nylas.APIClient(
-    client_id=os.environ.get('CLIENT_ID'),
-    client_secret=os.environ.get('CLIENT_SECRET'),
-    access_token=os.environ.get('ACCESS_TOKEN')
-)
+from nylas.models.calendars import ListCalendersQueryParams
+from nylas.models.errors import NylasApiError
 
-def get_all_event_ids():
+# Load environment variables from a .env file
+load_dotenv()
+
+
+def display_calendar_ids(client: nylas.Client) -> None:
     """
-    Get a list of all event IDs associated with the user's calendar.
+    Retrieve and display the Calendar IDs and names of connected calendars.
 
-    Returns:
-        list: A list of event IDs.
+    This function authenticates with the Nylas account using the provided credentials and
+    fetches the list of connected calendars. It then displays the Calendar IDs, names, and
+    descriptions of the calendars.
 
-    Raises:
-        NylasError: If there's an error while interacting with the Nylas API.
-    """
-    try:
-        # Fetch all events for the authenticated user
-        events = client.events.all()
-
-        # Extract and return a list of event IDs
-        event_ids = [event.id for event in events]
-        return event_ids
-    except NylasError as e:
-        # Handle Nylas API errors
-        print(f"Error: {e.message}")
-        return []
-
-def delete_calendar_event(event_id):
-    """
-    Delete a calendar event using the Nylas Python SDK.
+    Note:
+        Ensure that you have set up your Nylas application with the required credentials
+        ('API_KEY' and 'GRANT_ID').
 
     Args:
-        event_id (str): The ID of the calendar event to be deleted.
-
-    Returns:
-        bool: True if the event was successfully deleted, False otherwise.
+        client (nylas.Client): An instance of the Nylas Client.
 
     Raises:
-        NylasException: If there's an error while interacting with the Nylas API.
+        Exception: If there is an error during the calendar retrieval process.
     """
     try:
-        # Delete the calendar event by its ID
-        client.events.delete(event_id)
+        # Get a list of connected calendars
+        query_params = ListCalendersQueryParams(limit=10)
+
+        calendars, _, _ = client.calendars.list(
+            identifier=os.environ.get("GRANT_ID"), query_params=query_params
+        )
+
+        if calendars:
+            print("Connected Calendars:\n")
+            for calendar in calendars:
+                print(
+                    f"Calendar ID: {calendar.id}, Name: {calendar.name}, Description: {calendar.description}"
+                )
+        else:
+            print("No connected calendars found.")
+
+    except NylasApiError as e:
+        print(f"Nylas Error: {e}")
+
+
+def delete_calendar(client: nylas.Client, calendar_id: str) -> bool:
+    """
+    Delete a calendar using the Nylas Python SDK.
+
+    Args:
+        client (nylas.Client): An instance of the Nylas Client.
+        calendar_id (str): The ID of the calendar to be deleted.
+
+    Returns:
+        bool: True if the calendar was successfully deleted, False otherwise.
+
+    Raises:
+        Exception: If there's an error while interacting with the Nylas API.
+    """
+    try:
+        # Delete the calendar by its ID
+        client.calendars.destroy(
+            calendar_id=calendar_id, identifier=os.environ.get("GRANT_ID")
+        )
         return True
-    except NylasError as e:
-        # Handle Nylas API errors
-        print(f"Error: {e.message}")
+    except NylasApiError as e:
+        print(f"Nylas Error: {e}")
         return False
 
-def main():
+
+def main() -> None:
     try:
-        # display all event ids
-        event_ids = get_all_event_ids()
+        # Initialize the Nylas client with API_KEY environment variable
+        client = nylas.Client(
+            api_key=os.environ.get("API_KEY"),
+        )
+        # create a test calendar
+        client.calendars.create(
+            identifier=os.environ.get("GRANT_ID"),
+            request_body={
+                "name": "test",
+                "description": "test description",
+            },
+        )
+        # display all calendar ids
+        print("\nCalendars before delete:\n")
+        display_calendar_ids(client)
+        # Replace with your actual calendar ID
+        calendar_id = "g0oi8mfkvnr9hgiqscsda17vlg@group.calendar.google.com"
 
-        if event_ids:
-            print("List of Event IDs:")
-            for event_id in event_ids:
-                print(event_id)
-        else:
-            print("Failed to fetch event IDs.")
-        success = delete_calendar_event("8lyufsks2dlxzvh5ads9h3llu")
-
+        success = delete_calendar(client, calendar_id)
+        success = delete_calendar(client, calendar_id)
         if success:
-            print("Calendar event deleted successfully.")
+            print("Calendar deleted successfully.")
         else:
-            print("Failed to delete the calendar event.")
+            print("Failed to delete the calendar.")
+        print("\nCalendars after delete:\n")
+        display_calendar_ids(client)
+    except NylasApiError as e:
+        print(f"Nylas Error: {e}")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+
 
 if __name__ == "__main__":
     main()
