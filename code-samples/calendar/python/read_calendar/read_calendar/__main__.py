@@ -5,6 +5,7 @@ import nylas
 from dotenv import load_dotenv
 from nylas.models.calendars import ListCalendersQueryParams
 from nylas.models.events import ListEventQueryParams
+from nylas.models.errors import NylasApiError
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -26,7 +27,7 @@ def display_calendar_ids(client: nylas.Client) -> None:
         client (nylas.Client): An instance of the Nylas Client.
 
     Raises:
-        Exception: If there is an error during the calendar retrieval process.
+        nylas.models.errors.NylasApiError: If there is an error during the calendar retrieval process.
     """
     try:
         # Get a list of connected calendars
@@ -45,7 +46,7 @@ def display_calendar_ids(client: nylas.Client) -> None:
         else:
             print("No connected calendars found.")
 
-    except Exception as e:
+    except NylasApiError as e:
         print(f"Nylas Error: {e}")
 
 
@@ -65,7 +66,7 @@ def read_calendar_events(
         list: A list of calendar events within the specified time range.
 
     Raises:
-        Exception: If there is an error while fetching calendar events.
+        nylas.models.errors.NylasApiError: If there is an error while fetching calendar events.
     """
     try:
         # Get events from the specified calendar within the time range
@@ -78,7 +79,7 @@ def read_calendar_events(
         )
 
         return list(events)
-    except Exception as e:
+    except NylasApiError as e:
         print(f"Error while fetching calendar events: {e}")
 
 
