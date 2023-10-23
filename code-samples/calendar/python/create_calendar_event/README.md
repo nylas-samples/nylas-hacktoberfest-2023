@@ -18,9 +18,8 @@ Before using this project, make sure you have the following prerequisites:
 
 - Python 3.10 or higher
 - Make
-- Nylas API credentials (Client ID and Client Secret)
+- Nylas API credentials (`'API_KEY'` and `'GRANT_ID'`)
 - A Nylas Calendar ID
-- Writable Calendar Permissions (Ensure that you are attempting to create a calendar event for which you have the necessary write permissions. If you don't have write permissions, you won't be able to create a calendar event.)
 
 ## 🔧 Using Make
 
@@ -36,8 +35,8 @@ You can use the `make` command for common development tasks. Here are some usefu
 1. Fork/Clone this repository to your local machine:
 
     ```bash
-    git clone https://github.com/yourusername/create_calendar_event.git
-    cd create_calendar_event
+    git clone https://github.com/nylas-samples/nylas-hacktoberfest-2023.git
+    cd nylas-hacktoberfest-2023/code-samples/calendar/python/create_calendar_event
     ```
 
 1. Set up a virtual environment and activate it:
@@ -52,19 +51,19 @@ You can use the `make` command for common development tasks. Here are some usefu
     make install
     ```
 
-1. Configure your Nylas API credentials in the `.env` file by setting your `'CLIENT_ID'`, `'CLIENT_SECRET'`, and `'ACCESS_TOKEN'`  with your actual credentials.
+1. Configure your Nylas API credentials in the `.env` file by setting your `'API_KEY'` and `'GRANT_ID'`  with your actual credentials.
 
 ## 🏁 Getting Started
 
 After completing the installation steps, you're ready to get started:
 
-1. Run the script to update calendar:
+1. Run the script to create a calendar event:
 
     ```bash
     make run
     ```
 
-Read the on-screen information and copy a calendar ID to update it using its ID.
+Read the on-screen information and copy a calendar ID to attach an event to it.
 
     ```bash
     *** Running the app locally... ***
@@ -73,22 +72,23 @@ Read the on-screen information and copy a calendar ID to update it using its ID.
     poetry run create_calendar_event
     Connected Calendars:
 
-    Calendar ID: b7utep4mz2bnblp9un7nf4huz, Name: Emailed events
-    Calendar ID: dvr7bn8t2vitjwicq4a0wlmyz, Name: yo.code.inbox@gmail.com
-    Calendar ID: c3297qn92ylo1zpia4f5xwpxc, Name: Birthdays
-    Calendar ID: f2p46w7r9scde9omji1ofakiq, Name: Holidays in Lebanon
+    Calendar ID: mahmoudddharmouchhh@gmail.com, Name: mahmoudddharmouchhh@gmail.com, Description: None
+    Calendar ID: en.lb#holiday@group.v.calendar.google.com, Name: Holidays in Lebanon, Description: Holidays and Observances in Lebanon
+    Calendar ID: addressbook#contacts@group.v.calendar.google.com, Name: Birthdays, Description: Displays birthdays, anniversaries, and other event dates of people in Google Contacts.
+    Calendar ID: n1rd0h727dk44lva57qnbbeis8@group.calendar.google.com, Name: test, Description: test description
+    Calendar ID: co9ko6p4qbd5fvh7i55urnvf5s@group.calendar.google.com, Name: test, Description: test description
+    Calendar ID: tfnid9uts44nb1bqku4bednt14@group.calendar.google.com, Name: test-update, Description: Updated test description
 
-    Event created: {'id': 'c037aujdhhcd0xtqu1vpdz4zx', 'cls': <class 'nylas.client.restful_models.Event'>, 'api': <nylas.client.client.APIClient object at 0x7f6fe21c5030>, 'title': 'Team Meeting', 'description': 'Discuss project progress', 'location': 'Virtual', 'when': {'end_time': 1697904000, 'object': 'timespan', 'start_time': 1697900400}, 'participants': [{'comment': None, 'email': 'oss1@wiseai.dev', 'name': None, 'phone_number': None, 'status': 'noreply'}, {'comment': None, 'email': 'oss2@wiseai.dev', 'name': None, 'phone_number': None, 'status': 'noreply'}], 'calendar_id': 'dvr7bn8t2vitjwicq4a0wlmyz', 'account_id': 'dx1wzoyuv7m1owc5rcfk8bhaj', 'conferencing': None, 'read_only': False, 'busy': True, 'recurrence': None, 'status': 'confirmed', 'master_event_id': None, 'job_status_id': 'r4kpfndfyy3la9lapyb6udzu', 'owner': 'Code Inbox <yo.code.inbox@gmail.com>', 'original_start_time': None, 'object': 'event', 'message_id': None, 'ical_uid': None, 'metadata': None, 'notifications': None, 'event_collection_id': None, 'capacity': None, 'round_robin_order': None, 'visibility': None}
+    Getting events before event creation for Calendar 'test':
 
-    Event ID: c92mwkdflwoati4d9mqshp074, Title: Nylas Calendar Testing, Start Time: 1970-01-01 00:00:00, End Time: 1970-01-01 00:00:00
-    Event ID: a78lwinreqpjwctfzost31y33, Title: Team Meeting, Start Time: 2023-10-21 15:00:00, End Time: 2023-10-21 16:00:00
-    Event ID: 10sd4nkwkcvaxvpafaaq4rszr, Title: Team Meeting, Start Time: 2023-10-21 15:00:00, End Time: 2023-10-21 16:00:00
-    Event ID: dick3o1il1hovyswnqoit0rd0, Title: Team Meeting, Start Time: 2023-10-21 15:00:00, End Time: 2023-10-21 16:00:00
-    Event ID: 3s62glyr7fhew4vn9arxb05ek, Title: Team Meeting, Start Time: 2023-10-21 15:00:00, End Time: 2023-10-21 16:00:00
-    Event ID: 8pn8g4tvx7b301t9k2hxueda6, Title: Team Meeting, Start Time: 2023-10-21 15:00:00, End Time: 2023-10-21 16:00:00
-    Event ID: bfbn01g8a31c4o2md8mqgiziv, Title: Team Meeting, Start Time: 2023-10-21 15:00:00, End Time: 2023-10-21 16:00:00
-    Event ID: 7llw323dzocdfg0xxidpzmz90, Title: Team Meeting, Start Time: 2023-10-21 15:00:00, End Time: 2023-10-21 16:00:00
-    Event ID: c037aujdhhcd0xtqu1vpdz4zx, Title: Team Meeting, Start Time: 2023-10-21 15:00:00, End Time: 2023-10-21 16:00:00
+    No events found in the specified calendar.
+
+    Event created: Event(id='pmr8p8vho5shc0n36ot991htss', grant_id='your_grant_id', calendar_id='primary', busy=True, read_only=False, created_at=1698045921, updated_at=1698045921, participants=[Participant(email='oss1@wiseai.dev', status='noreply', name=None, comment=None, phone_number=None), Participant(email='oss2@wiseai.dev', status='noreply', name=None, comment=None, phone_number=None)], when=Timespan(start_time=1696107600, end_time=1729457999, start_timezone='Asia/Beirut', end_timezone='Asia/Beirut', object='timespan'), conferencing=None, object='event', description='Discuss project progress', location='Virtual', ical_uid='pmr8p8vho5shc0n36ot991htss@google.com', title='Team Meeting', html_link='https://www.google.com/calendar/event?eid=your_event_id', hide_participants=False, metadata=None, creator=EmailName(email='mahmoudddharmouchhh@gmail.com', name=''), organizer=EmailName(email='mahmoudddharmouchhh@gmail.com', name=''), recurrence=None, reminders=Reminder(use_default=True, overrides=None), status='confirmed', visibility=None)
+
+
+    Getting events after event creation for Calendar 'test':
+
+    No events found in the specified calendar.
     ```
 
 ## 📚 Documentation
