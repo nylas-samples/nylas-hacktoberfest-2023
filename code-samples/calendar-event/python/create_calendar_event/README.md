@@ -36,7 +36,7 @@ You can use the `make` command for common development tasks. Here are some usefu
 
     ```bash
     git clone https://github.com/nylas-samples/nylas-hacktoberfest-2023.git
-    cd nylas-hacktoberfest-2023/code-samples/calendar/python/create_calendar_event
+    cd nylas-hacktoberfest-2023/code-samples/calendar-event/python/create_calendar_event
     ```
 
 1. Set up a virtual environment and activate it:
@@ -75,20 +75,21 @@ Read the on-screen information and copy a calendar ID to attach an event to it.
     Calendar ID: mahmoudddharmouchhh@gmail.com, Name: mahmoudddharmouchhh@gmail.com, Description: None
     Calendar ID: en.lb#holiday@group.v.calendar.google.com, Name: Holidays in Lebanon, Description: Holidays and Observances in Lebanon
     Calendar ID: addressbook#contacts@group.v.calendar.google.com, Name: Birthdays, Description: Displays birthdays, anniversaries, and other event dates of people in Google Contacts.
+    Calendar ID: 8t4pnfu73fdiv73qreji1d2j5534dmbl@import.calendar.google.com, Name: Coursera Calendar - Mahmoud Harmouch - mahmoudddharmouchhh@gmail.com, Description: None
     Calendar ID: n1rd0h727dk44lva57qnbbeis8@group.calendar.google.com, Name: test, Description: test description
     Calendar ID: co9ko6p4qbd5fvh7i55urnvf5s@group.calendar.google.com, Name: test, Description: test description
     Calendar ID: tfnid9uts44nb1bqku4bednt14@group.calendar.google.com, Name: test-update, Description: Updated test description
 
-    Getting events before event creation for Calendar 'test':
+    Getting events before event creation for Calendar 'test-update':
 
     No events found in the specified calendar.
 
-    Event created: Event(id='pmr8p8vho5shc0n36ot991htss', grant_id='your_grant_id', calendar_id='primary', busy=True, read_only=False, created_at=1698045921, updated_at=1698045921, participants=[Participant(email='oss1@wiseai.dev', status='noreply', name=None, comment=None, phone_number=None), Participant(email='oss2@wiseai.dev', status='noreply', name=None, comment=None, phone_number=None)], when=Timespan(start_time=1696107600, end_time=1729457999, start_timezone='Asia/Beirut', end_timezone='Asia/Beirut', object='timespan'), conferencing=None, object='event', description='Discuss project progress', location='Virtual', ical_uid='pmr8p8vho5shc0n36ot991htss@google.com', title='Team Meeting', html_link='https://www.google.com/calendar/event?eid=your_event_id', hide_participants=False, metadata=None, creator=EmailName(email='mahmoudddharmouchhh@gmail.com', name=''), organizer=EmailName(email='mahmoudddharmouchhh@gmail.com', name=''), recurrence=None, reminders=Reminder(use_default=True, overrides=None), status='confirmed', visibility=None)
+    Event created: Event(id='c7c5ccevt3agepcccv1an05sec', grant_id='your_grant_id', calendar_id='tfnid9uts44nb1bqku4bednt14@group.calendar.google.com', busy=True, read_only=False, created_at=1698062199, updated_at=1698062199, participants=[Participant(email='oss1@wiseai.dev', status='noreply', name=None, comment=None, phone_number=None), Participant(email='oss2@wiseai.dev', status='noreply', name=None, comment=None, phone_number=None)], when=Timespan(start_time=1696107600, end_time=1729457999, start_timezone='Asia/Beirut', end_timezone='Asia/Beirut', object='timespan'), conferencing=None, object='event', description='Discuss project progress', location='Virtual', ical_uid='c7c5ccevt3agepcccv1an05sec@google.com', title='Team Meeting', html_link='https://www.google.com/calendar/event?eid=your_eid', hide_participants=False, metadata=None, creator=EmailName(email='mahmoudddharmouchhh@gmail.com', name=''), organizer=EmailName(email='tfnid9uts44nb1bqku4bednt14@group.calendar.google.com', name='test-update'), recurrence=None, reminders=Reminder(use_default=True, overrides=None), status='confirmed', visibility=None)
 
 
-    Getting events after event creation for Calendar 'test':
+    Getting events after event creation for Calendar 'test-update':
 
-    No events found in the specified calendar.
+    Event title: Team Meeting, start time: 2023-10-01 00:00:00, end time: 2024-10-20 23:59:59
     ```
 
 ## 📚 Documentation

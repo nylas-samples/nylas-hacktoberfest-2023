@@ -4,9 +4,8 @@ from datetime import datetime
 import nylas
 from dotenv import load_dotenv
 from nylas.models.calendars import ListCalendersQueryParams
+from nylas.models.events import ListEventQueryParams, CreateEventRequest, CreateEventQueryParams
 from nylas.models.errors import NylasApiError
-from nylas.models.events import (CreateEventQueryParams, CreateEventRequest,
-                                 ListEventQueryParams)
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -83,7 +82,6 @@ def read_calendar_events(
     except NylasApiError as e:
         print(f"Error while fetching calendar events: {e}")
 
-
 def create_calendar_event(
     client,
     title,
@@ -127,10 +125,10 @@ def create_calendar_event(
         # create an event for that calendar ID
         # request_body = CreateEventRequest(title=title, description=description, location=location, when=when, calendar_id=calendar_id)
         query_params = CreateEventQueryParams(
-            calendar_id="primary", notify_participants=True
+            calendar_id=calendar_id, notify_participants=True
         )
-
-        event, request_id = client.events.create(
+        
+        event, _ = client.events.create(
             identifier=os.environ.get("GRANT_ID"),
             query_params=query_params,
             request_body={
@@ -143,8 +141,7 @@ def create_calendar_event(
         )
         return event
     except NylasApiError as e:
-        raise NylasError(f"Error creating event: {e}")
-
+        print(f"Error creating event: {e}")
 
 def main() -> None:
     try:
@@ -156,7 +153,7 @@ def main() -> None:
         display_calendar_ids(client)
 
         # Replace with your actual calendar ID, start, and end time
-        calendar_id = "n1rd0h727dk44lva57qnbbeis8@group.calendar.google.com"
+        calendar_id = "tfnid9uts44nb1bqku4bednt14@group.calendar.google.com"
         start_time = "2023-10-01T00:00:00Z"
         start_datetime_obj = datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%SZ")
         start_unix_time = int(start_datetime_obj.timestamp())
@@ -167,10 +164,14 @@ def main() -> None:
         events = read_calendar_events(
             client, calendar_id, start_unix_time, end_unix_time
         )
-        print("\nGetting events before event creation for Calendar 'test':\n")
+        print("\nGetting events before event creation for Calendar 'test-update':\n")
         if events:
             for event in events:
-                print(f"Event: {event.title}, Date: {event.when.date}")
+                human_readable_start_time = datetime.fromtimestamp(event.when.start_time)
+                formatted_start_datetime = human_readable_start_time.strftime('%Y-%m-%d %H:%M:%S')
+                human_readable_end_time = datetime.fromtimestamp(event.when.end_time)
+                formatted_end_datetime = human_readable_end_time.strftime('%Y-%m-%d %H:%M:%S')
+                print(f"Event title: {event.title}, start time: {formatted_start_datetime}, end time: {formatted_end_datetime}")
         else:
             print("No events found in the specified calendar.")
         participants = [{"email": "oss1@wiseai.dev"}, {"email": "oss2@wiseai.dev"}]
@@ -188,10 +189,14 @@ def main() -> None:
         events = read_calendar_events(
             client, calendar_id, start_unix_time, end_unix_time
         )
-        print("\nGetting events after event creation for Calendar 'test':\n")
+        print("\nGetting events after event creation for Calendar 'test-update':\n")
         if events:
             for event in events:
-                print(f"Event: {event.title}, Date: {event.when.date}")
+                human_readable_start_time = datetime.fromtimestamp(event.when.start_time)
+                formatted_start_datetime = human_readable_start_time.strftime('%Y-%m-%d %H:%M:%S')
+                human_readable_end_time = datetime.fromtimestamp(event.when.end_time)
+                formatted_end_datetime = human_readable_end_time.strftime('%Y-%m-%d %H:%M:%S')
+                print(f"Event title: {event.title}, start time: {formatted_start_datetime}, end time: {formatted_end_datetime}")
         else:
             print("No events found in the specified calendar.")
     except Exception as e:
