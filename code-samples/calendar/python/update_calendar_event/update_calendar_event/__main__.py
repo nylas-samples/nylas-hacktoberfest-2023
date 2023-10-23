@@ -1,149 +1,208 @@
-import datetime
 import os
+from datetime import datetime
 
 import nylas
 from dotenv import load_dotenv
-from nylas.client.errors import NylasError
+from nylas.models.calendars import ListCalendersQueryParams
+from nylas.models.errors import NylasApiError
+from nylas.models.events import (CreateEventQueryParams, CreateEventRequest,
+                                 ListEventQueryParams)
 
 # Load environment variables from a .env file
 load_dotenv()
 
 
-def update_calendar_event(
-    client,
-    event_id,
-    title=None,
-    location=None,
-    start_time=None,
-    end_time=None,
-    description=None,
-    participants=None,
-):
-    """
-    Update an existing calendar event.
-
-    Args:
-        client (nylas.APIClient): The initialized Nylas API client.
-        event_id (str): The ID of the event to update.
-        title (str, optional): The updated title of the event.
-        location (str, optional): The updated location of the event.
-        start_time (str, optional): The updated start time of the event in ISO 8601 format.
-        end_time (str, optional): The updated end time of the event in ISO 8601 format.
-        description (str, optional): The updated description of the event.
-        participants (list, optional): The updated list of participant dictionaries with an "email" field.
-
-    Returns:
-        nylas.events.Event: The updated event object.
-
-    Raises:
-        nylas.client.errors.NylasError: If there's an issue with the Nylas API.
-    """
-    try:
-        event = client.events.get(event_id)
-
-        if title is not None:
-            event.title = title
-        if location is not None:
-            event.location = location
-        if start_time is not None and end_time is not None:
-            event.when = {"start_time": start_time, "end_time": end_time}
-        if description is not None:
-            event.description = description
-        if participants is not None:
-            event.participants = participants
-
-        event.save()
-        return event
-    except NylasError as e:
-        raise NylasError(f"Error creating event: {e.message}")
-
-
-def display_calendar_ids(client):
+def display_calendar_ids(client: nylas.Client) -> None:
     """
     Retrieve and display the Calendar IDs and names of connected calendars.
+
     This function authenticates with the Nylas account using the provided credentials and
-    fetches the list of connected calendars. It then displays the Calendar IDs and names
-    of the calendars.
-    Args:
-        client (nylas.APIClient): The initialized Nylas API client.
+    fetches the list of connected calendars. It then displays the Calendar IDs, names, and
+    descriptions of the calendars.
+
     Note:
-        Ensure that you have set up your Nylas application with the required credentials and
-        permissions ('client_id', 'client_secret', 'access token'').
+        Ensure that you have set up your Nylas application with the required credentials
+        ('API_KEY' and 'GRANT_ID').
+
+    Args:
+        client (nylas.Client): An instance of the Nylas Client.
+
     Raises:
-        nylas.client.errors.NylasError: If there is an error during the calendar retrieval process.
+        nylas.models.errors.NylasApiError: If there is an error during the calendar retrieval process.
     """
     try:
         # Get a list of connected calendars
-        calendars = client.calendars.all()
+        query_params = ListCalendersQueryParams(limit=10)
+
+        calendars, _, _ = client.calendars.list(
+            identifier=os.environ.get("GRANT_ID"), query_params=query_params
+        )
 
         if calendars:
             print("Connected Calendars:\n")
             for calendar in calendars:
-                print(f"Calendar ID: {calendar.id}, Name: {calendar.name}")
+                print(
+                    f"Calendar ID: {calendar.id}, Name: {calendar.name}, Description: {calendar.description}"
+                )
         else:
             print("No connected calendars found.")
 
-    except NylasError as e:
-        raise NylasError(f"Nylas Error: {e.message}")
+    except NylasApiError as e:
+        print(f"Nylas Error: {e}")
 
 
-def get_all_events(client, calendar_id):
+def read_calendar_events(
+    client: nylas.Client, calendar_id: str, start_time: int, end_time: int
+) -> list:
     """
-    Retrieve all events for a specific calendar.
+    Read calendar events within a specified time range.
 
     Args:
-        client (nylas.APIClient): The initialized Nylas API client.
-        calendar_id (str): The ID of the calendar to fetch events from.
+        client (nylas.Client): An instance of the Nylas Client.
+        calendar_id (str): The ID of the calendar to read events from.
+        start_time (int): The start time of the range in Unix timestamp format.
+        end_time (int): The end time of the range in Unix timestamp format.
 
     Returns:
-        list of nylas.events.Event: A list of event objects from the specified calendar.
+        list: A list of calendar events within the specified time range.
 
     Raises:
-        nylas.exceptions.NylasException: If there's an issue with the Nylas API.
+        nylas.models.errors.NylasApiError: If there is an error while fetching calendar events.
     """
     try:
-        events = client.events.where(calendar_id=calendar_id).all()
-        return events
-    except NylasError as e:
-        raise NylasError(f"Nylas Error: {e.message}")
-
-
-def main():
-    try:
-        # Initialize the Nylas client with environment variables
-        client = nylas.APIClient(
-            client_id=os.environ.get("CLIENT_ID"),
-            client_secret=os.environ.get("CLIENT_SECRET"),
-            access_token=os.environ.get("ACCESS_TOKEN"),
+        # Get events from the specified calendar within the time range
+        query_params = ListEventQueryParams(
+            limit=20, calendar_id=calendar_id, start=start_time, end=end_time
         )
-        # Retrieve all calendars to choose an id to associate an event with it.
+
+        events, _, _ = client.events.list(
+            identifier=os.environ.get("GRANT_ID"), query_params=query_params
+        )
+
+        return list(events)
+    except NylasApiError as e:
+        print(f"Error while fetching calendar events: {e}")
+
+
+def update_calendar_event(
+    client,
+    title,
+    location,
+    start_time,
+    end_time,
+    description=None,
+    participants=None,
+    event_id=None,
+) -> bool:
+    """
+    Update a calendar event and save it inside a specific calendar.
+
+    Args:
+        client (nylas.Client): The initialized Nylas API client.
+        title (str): The title or name of the event.
+        location (str): The location where the event will take place.
+        start_time (int): The start time of the range in Unix timestamp format.
+        end_time (int): The end time of the range in Unix timestamp format.
+        description (str, optional): A description or additional information about the event.
+        participants (list, optional): List of participant dictionaries with an "email" field.
+        event_id (str, optional): The ID of the event which the event should be update.
+
+    Returns:
+        bool: A boolean type to indicate whether or not the event was updated successfully.
+
+    Raises:
+        nylas.client.errors.NylasError: If there's an issue with the Nylas API.
+
+    Examples:
+        update a simple event with participants and save it:
+        >>> participants = [{'email': 'oss1@wiseai.dev'}, {'email': 'oss2@wiseai.dev'}]
+        >>> event = update_calendar_event(client, 'Meeting', 'Conference Room', 1729457999, 1729458000, participants, 'your_event_id' )
+
+        update an event with a description and participants and save it:
+        >>> participants = [{'email': 'oss1@wiseai.dev'}, {'email': 'oss2@wiseai.dev'}]
+        >>> event = update_calendar_event(client, 'Team Meeting', 'Virtual', 1729457999, 1729458000, 'Discuss project progress', participants, 'your_event_id')
+    """
+    try:
+        query_params = CreateEventQueryParams(
+            calendar_id="primary", notify_participants=True
+        )
+        client.events.update(
+            identifier=os.environ.get("GRANT_ID"),
+            event_id=event_id,
+            request_body={
+                "title": title,
+                "description": description,
+                "location": location,
+                "when": {"start_time": start_time, "end_time": end_time},
+                "participants": participants,
+            },
+            query_params=query_params,
+        )
+        return True
+    except NylasApiError as e:
+        print(f"Error update event: {e}")
+        return False
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return False
+
+
+def main() -> None:
+    try:
+        # Initialize the Nylas client with API_KEY environment variable
+        client = nylas.Client(
+            api_key=os.environ.get("API_KEY"),
+        )
+        # display all calendar ids
         display_calendar_ids(client)
 
-        # Retrieve all events associated with this calendar to choose an id to update the event.
-        events = get_all_events(client, "dvr7bn8t2vitjwicq4a0wlmyz")
-        if events:
-            print(f"\nFirst event before update: {events[0]}\n")
+        # Replace with your actual calendar ID, start, and end time
+        calendar_id = "en.lb#holiday@group.v.calendar.google.com"
+        start_time = "2023-10-01T00:00:00Z"
+        start_datetime_obj = datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%SZ")
+        start_unix_time = int(start_datetime_obj.timestamp())
 
+        end_time = "2024-10-20T23:59:59Z"
+        end_datetime_obj = datetime.strptime(end_time, "%Y-%m-%dT%H:%M:%SZ")
+        end_unix_time = int(end_datetime_obj.timestamp())
+        events = read_calendar_events(
+            client, calendar_id, start_unix_time, end_unix_time
+        )
+        print(
+            "\nGetting events before event update for Calendar 'Holidays in Lebanon':\n"
+        )
+        if events:
+            for event in events:
+                print(
+                    f"Event ID: {event.id}, Title: {event.title}, Date: {event.when.date}"
+                )
         else:
             print("No events found in the specified calendar.")
-        participants = [{"email": "oss3@wiseai.dev"}, {"email": "oss4@wiseai.dev"}]
-        updated_event = update_calendar_event(
+        participants = [{"email": "oss1@wiseai.dev"}, {"email": "oss2@wiseai.dev"}]
+        event = update_calendar_event(
             client,
-            "a78lwinreqpjwctfzost31y33",
-            title="Updated Meeting",
-            location="New Conference Room",
-            start_time="2023-10-21T10:00:00Z",
-            end_time="2023-10-21T11:00:00Z",
-            description="Discuss project status",
-            participants=participants,
+            "Team Meeting",
+            "Virtual",
+            start_unix_time,
+            end_unix_time,
+            "Discuss project progress",
+            participants,
+            "20231029_vabqu54s35oscpe0c4vrpa1ge8",
         )
-
-        events = get_all_events(client, "dvr7bn8t2vitjwicq4a0wlmyz")
+        print(f"\nEvent Update: {event}\n")
+        events = read_calendar_events(
+            client, calendar_id, start_unix_time, end_unix_time
+        )
+        print(
+            "\nGetting events after event update for Calendar 'Holidays in Lebanon':\n"
+        )
         if events:
-            print(f"\nFirst event after update: {events[0]}\n")
-    except NylasError as e:
-        raise NylasError(f"Error creating event: {e.message}")
-
+            for event in events:
+                print(
+                    f"Event ID: {event.id}, Title: {event.title}, Date: {event.when.date}"
+                )
+        else:
+            print("No events found in the specified calendar.")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
