@@ -5,8 +5,11 @@ import nylas
 from dotenv import load_dotenv
 from nylas.models.calendars import ListCalendersQueryParams
 from nylas.models.errors import NylasApiError
-from nylas.models.events import (CreateEventQueryParams, CreateEventRequest,
-                                 ListEventQueryParams)
+from nylas.models.events import (
+    CreateEventQueryParams,
+    CreateEventRequest,
+    ListEventQueryParams,
+)
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -93,6 +96,7 @@ def update_calendar_event(
     description=None,
     participants=None,
     event_id=None,
+    calendar_id=None,
 ) -> bool:
     """
     Update a calendar event and save it inside a specific calendar.
@@ -105,7 +109,8 @@ def update_calendar_event(
         end_time (int): The end time of the range in Unix timestamp format.
         description (str, optional): A description or additional information about the event.
         participants (list, optional): List of participant dictionaries with an "email" field.
-        event_id (str, optional): The ID of the event which the event should be update.
+        event_id (str, optional): The ID of the event which the event should be updated.
+        calendar_id (str, optional): The ID of the calendar in which the event should be updated.
 
     Returns:
         bool: A boolean type to indicate whether or not the event was updated successfully.
@@ -116,15 +121,15 @@ def update_calendar_event(
     Examples:
         update a simple event with participants and save it:
         >>> participants = [{'email': 'oss1@wiseai.dev'}, {'email': 'oss2@wiseai.dev'}]
-        >>> event = update_calendar_event(client, 'Meeting', 'Conference Room', 1729457999, 1729458000, participants, 'your_event_id' )
+        >>> event = update_calendar_event(client, 'Meeting', 'Conference Room', 1729457999, 1729458000, participants, 'your_event_id', 'your_calendar_id')
 
         update an event with a description and participants and save it:
         >>> participants = [{'email': 'oss1@wiseai.dev'}, {'email': 'oss2@wiseai.dev'}]
-        >>> event = update_calendar_event(client, 'Team Meeting', 'Virtual', 1729457999, 1729458000, 'Discuss project progress', participants, 'your_event_id')
+        >>> event = update_calendar_event(client, 'Team Meeting', 'Virtual', 1729457999, 1729458000, 'Discuss project progress', participants, 'your_event_id', 'your_calendar_id')
     """
     try:
         query_params = CreateEventQueryParams(
-            calendar_id="primary", notify_participants=True
+            calendar_id=calendar_id, notify_participants=True
         )
         client.events.update(
             identifier=os.environ.get("GRANT_ID"),
@@ -157,7 +162,7 @@ def main() -> None:
         display_calendar_ids(client)
 
         # Replace with your actual calendar ID, start, and end time
-        calendar_id = "en.lb#holiday@group.v.calendar.google.com"
+        calendar_id = "tfnid9uts44nb1bqku4bednt14@group.calendar.google.com"
         start_time = "2023-10-01T00:00:00Z"
         start_datetime_obj = datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%SZ")
         start_unix_time = int(start_datetime_obj.timestamp())
@@ -168,38 +173,55 @@ def main() -> None:
         events = read_calendar_events(
             client, calendar_id, start_unix_time, end_unix_time
         )
-        print(
-            "\nGetting events before event update for Calendar 'Holidays in Lebanon':\n"
-        )
+        print("\nGetting events before event update for Calendar 'test-update':\n")
         if events:
             for event in events:
+                human_readable_start_time = datetime.fromtimestamp(
+                    event.when.start_time
+                )
+                formatted_start_datetime = human_readable_start_time.strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
+                human_readable_end_time = datetime.fromtimestamp(event.when.end_time)
+                formatted_end_datetime = human_readable_end_time.strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
                 print(
-                    f"Event ID: {event.id}, Title: {event.title}, Date: {event.when.date}"
+                    f"Event id: {event.id}, Event title: {event.title}, start time: {formatted_start_datetime}, end time: {formatted_end_datetime}"
                 )
         else:
             print("No events found in the specified calendar.")
         participants = [{"email": "oss1@wiseai.dev"}, {"email": "oss2@wiseai.dev"}]
         event = update_calendar_event(
             client,
-            "Team Meeting",
+            "Team Meeting Update",
             "Virtual",
             start_unix_time,
             end_unix_time,
-            "Discuss project progress",
+            "Discuss project update",
             participants,
-            "20231029_vabqu54s35oscpe0c4vrpa1ge8",
+            "c7c5ccevt3agepcccv1an05sec",
+            calendar_id,
         )
         print(f"\nEvent Update: {event}\n")
         events = read_calendar_events(
             client, calendar_id, start_unix_time, end_unix_time
         )
-        print(
-            "\nGetting events after event update for Calendar 'Holidays in Lebanon':\n"
-        )
+        print("\nGetting events after event update for Calendar 'test-update':\n")
         if events:
             for event in events:
+                human_readable_start_time = datetime.fromtimestamp(
+                    event.when.start_time
+                )
+                formatted_start_datetime = human_readable_start_time.strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
+                human_readable_end_time = datetime.fromtimestamp(event.when.end_time)
+                formatted_end_datetime = human_readable_end_time.strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
                 print(
-                    f"Event ID: {event.id}, Title: {event.title}, Date: {event.when.date}"
+                    f"Event id: {event.id}, Event title: {event.title}, start time: {formatted_start_datetime}, end time: {formatted_end_datetime}"
                 )
         else:
             print("No events found in the specified calendar.")
