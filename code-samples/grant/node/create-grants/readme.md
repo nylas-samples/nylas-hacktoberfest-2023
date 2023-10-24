@@ -42,6 +42,6 @@ npm start
 }
 ```
 
-**ON TERMINAL**
+**TERMINAL OUTPUT**
 
 `GRANT ID: <GRANT_ID>`
