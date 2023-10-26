@@ -10,7 +10,13 @@ nylas = Nylas::Client.new(
 )
 
 begin
-    help Nylas::Client.calendar.create
+    new_calendar = nylas.calendars.create(
+        identifier: ENV["GRANT_ID"],
+    )
+    
+    # print the calendar
+    puts new_calendar
+
 rescue => error
-    puts error
+    puts "Nylas Error: #{error}"
 end

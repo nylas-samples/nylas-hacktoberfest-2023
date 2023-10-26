@@ -21,6 +21,7 @@ You'll need the following values:
 
 ```text
 API_KEY=
+GRANT_ID=
 ```
 
 Add the above values to a new `.env` file:
