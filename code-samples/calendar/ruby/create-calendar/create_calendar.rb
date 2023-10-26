@@ -12,6 +12,10 @@ nylas = Nylas::Client.new(
 begin
     new_calendar = nylas.calendars.create(
         identifier: ENV["GRANT_ID"],
+        request_body: {
+            name: "My New Calendar 1",
+            description: "Calendar test 1",
+        }
     )
     
     # print the calendar
