@@ -1,5 +1,5 @@
 {
-  "name": "create-grant",
+  "name": "read-grants",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
