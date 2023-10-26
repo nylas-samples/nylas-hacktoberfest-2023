@@ -11,10 +11,12 @@ const nylas = new Nylas({
 const grants = await nylas.auth.grants.list();
 
 async function main() {
+  if (grants.data.length === 0) {
+    console.log("No grants found!");
+    return;
+  }
+
   console.clear();
-
-  if (!grants.data.length === 0) console.log("No grants found!");
-
   try {
     const answer = await inquirer.prompt([
       {
