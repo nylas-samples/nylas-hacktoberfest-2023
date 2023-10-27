@@ -7,12 +7,10 @@ pip install python-dotenv
 pip install nylas
 ```
 
-2. Create .env file with configuration parameters from Nylas
+2. Create .env file with configuration parameter from Nylas
 
 ```bash
-NYLAS_CLIENT_ID = XXXXX
-NYLAS_CLIENT_SECRET = XXXXX
-NYLAS_ACCESS_TOKEN = XXXXX
+NYLAS_API_KEY = XXXXX
 ```
 
 3. Update the 'webhook_id' variable in the **read_webhook.py** file and include the webhook id to be read
