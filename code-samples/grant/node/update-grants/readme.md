@@ -1,6 +1,6 @@
 # Update Grants using Nylas Node.js SDK
 
-This sample will show you to easily update grants with the Nylas Node.js SDK.
+This sample will show you how to easily override the existing grant scopes with the Nylas Node.js SDK.
 
 ## Setup
 
@@ -24,16 +24,25 @@ npm start
 
 ## Output
 
-? Please select an Gmail account to update: (Use arrow keys)
+? Please select a Gmail account to update: (Use arrow keys)
+
+
 ❯ johndoe@gmail.com
+
 john.doe@gmail.com
+
 johndoe@outlook.com
 
 ? Scopes: (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)
+
 ❯◯ Gmail ReadOnly
+
 ◯ Gmail Send
+
 ◯ Gmail Modify
+
 ◯ Calendar
+
 ◯ Contacts
 
     ❯ Grant updated successfully!
@@ -47,4 +56,5 @@ johndoe@outlook.com
     ===============================
 
 ? Do you want to update another grant? No
+
 Goodbye!
