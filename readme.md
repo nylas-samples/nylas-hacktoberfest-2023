@@ -120,9 +120,6 @@ Check out our [FAQs](https://github.com/nylas-samples/nylas-hacktoberfest-2023/b
 **Node.js SDK**
 
 - [node-create-calendar](/code-samples/calendar/node/create-calendar/readme.md): Create a new calendar with the Nylas Node.js SDK!
-- [create-grants](/code-samples/grant/node/create-grants/): Create grants using Nylas Node SDK!
-- [read-grants](/code-samples/grant/node/read-grants/): Read grants using Nylas Node SDK!
-- [delete-grants](/code-samples/grant/node/delete-grants/): Delete grants using Nylas Node SDK!
 
 **Python SDK**
 
@@ -132,6 +129,15 @@ Check out our [FAQs](https://github.com/nylas-samples/nylas-hacktoberfest-2023/b
 
 - Add your code sample here
 -
+
+## Grants
+
+**Node.js SDK**
+
+- [create-grants](/code-samples/grant/node/create-grants/): Create grants using Nylas Node SDK!
+- [read-grants](/code-samples/grant/node/read-grants/): Read grants using Nylas Node SDK!
+- [delete-grants](/code-samples/grant/node/delete-grants/): Delete grants using Nylas Node SDK!
+- [update-grants](/code-samples/grant/node/update-grants/): Update grants using Nylas Node SDK!
 
 ## Scheduler samples
 
