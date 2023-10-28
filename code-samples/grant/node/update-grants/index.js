@@ -22,7 +22,7 @@ async function main() {
       {
         type: "list",
         name: "grant",
-        message: "Please select an Gmail account to update:",
+        message: "Please select a Gmail account to update:",
         choices: grants.data.map(({ email, id }) => ({
           name: email,
 
@@ -68,9 +68,10 @@ async function main() {
       },
     });
 
-    console.log("\x1b[32m%s\x1b[0m", "\n❯ Grant updated successfully!");
+    const greenColorCode = "\x1b[32m%s\x1b[0m";
+    console.log(greenColorCode, "\n❯ Grant updated successfully!");
     console.log(
-      "\x1b[32m%s\x1b[0m",
+      greenColorCode,
       `
   UPDATED GRANT DETAILS:
   ===============================
