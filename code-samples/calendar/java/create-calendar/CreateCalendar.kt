@@ -1,6 +1,6 @@
 package com.nylas
 
-import com.nylas.CreateCalendarRequest
+import com.nylas.models.CreateCalendarRequest
 import com.nylas.models.Calendar
 import com.nylas.models.NylasApiError
 import com.nylas.models.NylasSdkTimeoutError
