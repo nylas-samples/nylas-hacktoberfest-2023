@@ -1,6 +1,6 @@
 # java-create-calendar
 
-This sample will show you to easily update a contact with the Nylas Kotlin/Java beta SDK.
+This sample will show you to easily create a calendar with the Nylas Kotlin/Java beta SDK.
 
 ## Project Folder Structure
 
