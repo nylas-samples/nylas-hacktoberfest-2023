@@ -119,6 +119,9 @@ Check out our [FAQs](https://github.com/nylas-samples/nylas-hacktoberfest-2023/b
 
 **Node.js SDK**
 
+- [read-calendar](https://github.com/kelbri10/nylas-hacktoberfest-2023/tree/read-calendar-code-sample/code-samples/calendar/node/read-calendar): Read a calendar by Id using Node.js SDK! 
+
+
 - [node-create-calendar](/code-samples/calendar/node/create-calendar/readme.md): Create a new calendar with the Nylas Node.js SDK!
 
 **Python SDK**
