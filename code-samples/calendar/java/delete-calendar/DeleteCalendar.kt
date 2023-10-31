@@ -1,5 +1,6 @@
 package com.nylas
 
+import com.nylas.NylasClient;
 import com.nylas.models.DeleteResponse
 import com.nylas.models.NylasApiError
 import com.nylas.models.NylasSdkTimeoutError
