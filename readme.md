@@ -107,7 +107,7 @@ Check out our [FAQs](https://github.com/nylas-samples/nylas-hacktoberfest-2023/b
 ## Calendar and Events API samples
 
 **Node.js SDK**
-- Add your code sample here
+- [read-calendar](https://github.com/kelbri10/nylas-hacktoberfest-2023/tree/read-calendar-code-sample/code-samples/calendar/node/read-calendar): Read a calendar by Id using Node.js SDK! 
 
 **Python SDK**
 - Add your code sample here
